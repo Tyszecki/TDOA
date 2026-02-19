@@ -10,7 +10,7 @@ System symuluje warunki rzeczywiste (rewerberacje, szum, tłumienie) zgodnie z m
 - `main.py`: Punkt wejścia aplikacji.
 - `processor.py`: Implementacja wagowanej korelacji wzajemnej.
 - `simulator.py`: Silnik fizyczny propagacji fali (bazujący na `SimZopBsp.py`, którego autorem jest Pan kmdr dr hab. inż. Piotr Szymak, p.szymak@amw.gdynia.pl).
-- `results/`: Wyniki analizy w formie graficznej.
+- `results/`: Wyniki analizy w formie graficznej i sprawozdanie.
 
 ## Jak uruchomić?
 1. Otwórz projekt w Visual Studio 2026.
