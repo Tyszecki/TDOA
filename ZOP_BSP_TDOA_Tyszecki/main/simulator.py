@@ -1,13 +1,11 @@
 import numpy as np
 from dataclasses import dataclass
 
-# =================================================================
-# STRUKTURY DANYCH
-# =================================================================
+
+# STRUKTURY DANYCH (Zgodnie z formatka projektu)
 
 @dataclass
 class HydroStruct:
-    """Pozycje w przestrzeni oraz parametry srodowiska."""
     S1: np.ndarray  
     H1: np.ndarray  
     H2: np.ndarray
@@ -20,7 +18,6 @@ class HydroStruct:
 
 @dataclass
 class SubmStruct:
-    """Parametry sygnalu i toru pomiarowego."""
     TF: np.ndarray  
     TA: np.ndarray  
     AM: float       
@@ -28,15 +25,14 @@ class SubmStruct:
     Tp: float       
     RD: np.ndarray  
 
-# =================================================================
+
 # FUNKCJE SYMULACYJNE
-# =================================================================
+
 
 def db2mag(db):
     return 10 ** (db / 20.0)
 
 def gen_sign_source(Subm):
-    """Generuje sygnal zrodlowy z szumem szerokopasmowym."""
     fs = Subm.Fs * 1000.0
     f = Subm.TF * 1000.0
     t = np.arange(0, Subm.Tp, 1.0 / fs)
@@ -49,21 +45,17 @@ def gen_sign_source(Subm):
     return sign + noise
 
 def calc_paths(Hydro):
-    """Oblicza drogi bezposrednie pomiedzy zrodlem a hydrofonami."""
     S1 = np.array(Hydro.S1, dtype=float)
     H = np.array([Hydro.H1, Hydro.H2, Hydro.H3, Hydro.H4], dtype=float)
     d = np.zeros(4)
     for i in range(4):
         d[i] = np.linalg.norm(S1 - H[i])
-    # Zwracamy macierz (4x3) dla kompatybilnosci z modelem wielodrogowym
     return np.column_stack((d, d, d))
 
 def gen_sign_hydro(signS, Hydro, propPaths, fs):
-    """Generuje sygnaly odebrane przez hydrofony z uwzglednieniem opoznien."""
     signH = []
     v = Hydro.Vs
     dt = np.round(propPaths[:, 0] / v * fs).astype(int)
-    
     for i in range(4):
         delay = np.zeros(dt[i])
         sig_delayed = np.concatenate((delay, signS))
@@ -74,5 +66,4 @@ def gen_sign_hydro(signS, Hydro, propPaths, fs):
     for s in signH:
         padded = np.pad(s, (0, max_len - len(s)), mode='constant')
         final_signs.append(padded)
-        
     return final_signs
