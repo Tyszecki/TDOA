@@ -19,9 +19,9 @@ def main():
 
     while True:
         os.system('cls' if os.name == 'nt' else 'clear')
-        print("||||||||||||||||||||||||||||||||||||||||||||||||||||")
+        print("====================================================")
         print("   ZOP-BSP: PANEL ANALITYCZNY Z POPRAWIONA TABELA   ")
-        print("||||||||||||||||||||||||||||||||||||||||||||||||||||")
+        print("====================================================")
 
         params["Vs"] = get_input("Predkosc dzwieku [m/s]", params["Vs"])
         params["S1_x"] = get_input("Pozycja zrodla X [m]", params["S1_x"])
@@ -57,7 +57,7 @@ def main():
 
         ax1 = plt.subplot2grid((2, 3), (0, 0), projection='3d')
         ax2 = plt.subplot2grid((2, 3), (0, 1), colspan=2)
-        ax3 = plt.subplot2grid((2, 3), (1, 0)) 
+        ax3 = plt.subplot2grid((2, 3), (1, 0)) # MIEJSCE NA TABELE
         ax4 = plt.subplot2grid((2, 3), (1, 1), colspan=2)
 
         # 1. Geometria
@@ -90,14 +90,14 @@ def main():
         table.scale(1.1, 2.5)
         
         for (row, col), cell in table.get_celld().items():
-            cell.set_edgecolor('white')
+            cell.set_edgecolor('white') # Białe krawędzie
             if row == 0:
-                cell.set_facecolor('#003366')
+                cell.set_facecolor('#003366') # Ciemny granat dla nagłówka
                 cell.get_text().set_color('cyan')
                 cell.get_text().set_weight('bold')
             else:
-                cell.set_facecolor('#1a1a1a')
-                cell.get_text().set_color('white')
+                cell.set_facecolor('#1a1a1a') # Bardzo ciemne tło dla danych
+                cell.get_text().set_color('white') # Biała czcionka dla danych
 
         ax3.set_title("KONFIGURACJA EKSPERYMENTU", pad=20, color='cyan', weight='bold')
 
