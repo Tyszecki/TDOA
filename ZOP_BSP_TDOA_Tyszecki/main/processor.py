@@ -5,7 +5,6 @@ class SignalProcessor:
         self.fs = fs
 
     def standard_cc(self, sig, refsig):
-        
         n = sig.shape[0] + refsig.shape[0]
         n_fft = 2**int(np.ceil(np.log2(n)))
         SIG = np.fft.rfft(sig, n=n_fft)
@@ -16,7 +15,6 @@ class SignalProcessor:
         return cc / (np.max(np.abs(cc)) + 1e-15)
 
     def gcc_phat(self, sig, refsig):
-       
         n = sig.shape[0] + refsig.shape[0]
         n_fft = 2**int(np.ceil(np.log2(n)))
         SIG = np.fft.rfft(sig, n=n_fft)
